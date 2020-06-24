@@ -21,7 +21,7 @@ public class BaseResponse<T> {
     /**
      * 消息
      */
-    private String msg;
+    private String message;
 
     /**
      * 返回
@@ -33,10 +33,10 @@ public class BaseResponse<T> {
 
     }
 
-    public BaseResponse(Integer code, String msg, T data) {
+    public BaseResponse(Integer code, String message, T data) {
         super();
         this.code = code;
-        this.msg = msg;
+        this.message = message;
         this.data = data;
     }
 

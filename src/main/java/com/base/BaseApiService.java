@@ -11,20 +11,20 @@ import org.springframework.stereotype.Component;
  *
  * @author chenYZ
  * @param code
- * @param msg
+ * @param message
  * @return
  */
 @Data
 @Component
 public class BaseApiService<T> {
 
-    public BaseResponse<T> setResultError(Integer code, String msg) {
-        return setResult(code, msg, null);
+    public BaseResponse<T> setResultError(Integer code, String message) {
+        return setResult(code, message, null);
     }
 
-    // 返回错误，可以传msg
-    public BaseResponse<T> setResultError(String msg) {
-        return setResult(Constants.HTTP_RES_CODE_500, msg, null);
+    // 返回错误，可以传message
+    public BaseResponse<T> setResultError(String message) {
+        return setResult(Constants.HTTP_RES_CODE_500, message, null);
     }
 
     // 返回成功，可以传data值
@@ -38,13 +38,13 @@ public class BaseApiService<T> {
     }
 
     // 返回成功，沒有data值
-    public BaseResponse<T> setResultSuccess(String msg) {
-        return setResult(Constants.HTTP_RES_CODE_200, msg, null);
+    public BaseResponse<T> setResultSuccess(String message) {
+        return setResult(Constants.HTTP_RES_CODE_200, message, null);
     }
 
     // 通用封装
-    public BaseResponse<T> setResult(Integer code, String msg, T data) {
-        return new BaseResponse<T>(code, msg, data);
+    public BaseResponse<T> setResult(Integer code, String message, T data) {
+        return new BaseResponse<T>(code, message, data);
     }
 
     // 调用数据库层判断

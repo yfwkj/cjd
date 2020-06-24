@@ -33,6 +33,6 @@ public class IndexController extends BaseApiService<JSONObject> {
         //服务层返回业务结果
         BaseResponse<JSONObject> yfwCjdEntityJson = yfwCjdService.addSubmit(yfwCjdEntity);
 
-        return setResult(yfwCjdEntityJson.getCode(), yfwCjdEntityJson.getMsg(), yfwCjdEntityJson.getData().getJSONObject("resultMap"));
+        return setResult(yfwCjdEntityJson.getCode(), yfwCjdEntityJson.getMessage(), yfwCjdEntityJson.getData().getJSONObject("resultMap"));
     }
 }
