@@ -15,6 +15,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan(basePackages = {"com.mapper"})
 public class AppYfwCjd {
     public static void main(String[] args) {
-        SpringApplication.run(AppYfwCjd.class,args);
+          SpringApplication.run(AppYfwCjd.class,args);
     }
 }
