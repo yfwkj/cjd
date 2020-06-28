@@ -1,4 +1,4 @@
-package com.mapper;
+package com.yfw.chengjiaodan.mapper;
 
 import com.mapper.entity.YfwConfigEntity;
 import org.apache.ibatis.annotations.Insert;
