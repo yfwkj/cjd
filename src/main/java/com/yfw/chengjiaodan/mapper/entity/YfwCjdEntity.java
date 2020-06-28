@@ -1,10 +1,11 @@
 package com.yfw.chengjiaodan.mapper.entity;
 
 import lombok.Data;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 
 /**
@@ -14,7 +15,6 @@ import javax.validation.constraints.*;
  * @Date: 2020/6/24 11:14
  * @Version: 1.0
  **/
-@Valid
 @Data
 public class YfwCjdEntity {
     private int id;
@@ -116,6 +116,5 @@ public class YfwCjdEntity {
     //    @NotNull(message = "del不能为null")
 //    @DecimalMin(value = "0",message = "必须大于0的数字")
     private Long del = 0L;
-
 
 }
