@@ -16,6 +16,12 @@ public interface Constants {
     // 未关联QQ账号
     Integer HTTP_RES_CODE_201 = 201;
 
+    // 无内容
+    Integer HTTP_RES_CODE_204 = 204;
+
+    // 未知错误
+    Integer HTTP_RES_CODE_400 = 400;
+
     // 发送邮件
     String MSG_EMAIL = "email";
 

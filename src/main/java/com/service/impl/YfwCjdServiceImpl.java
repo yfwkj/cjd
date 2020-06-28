@@ -5,6 +5,7 @@ import com.base.BaseApiService;
 import com.base.BaseResponse;
 import com.constants.Constants;
 import com.mapper.YfwCjdMapper;
+import com.mapper.YfwConfigMapper;
 import com.mapper.entity.YfwCjdEntity;
 import com.service.YfwCjdService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,16 @@ public class YfwCjdServiceImpl extends BaseApiService<YfwCjdEntity> implements Y
     @Autowired
     private YfwCjdMapper yfwCjdMapper;
 
+    @Autowired
+    private YfwConfigMapper yfwConfigMapper;
+
+    /**
+     * @Author Chenyz
+     * @Description 添加 yfwcjd 表 返回ID 查询添加成功的单条记录
+     * @Date 11:08 2020/6/28
+     * @Param [yfwCjdEntity]
+     * @return com.base.BaseResponse<com.mapper.entity.YfwCjdEntity>
+     **/
     @Override
     public BaseResponse<YfwCjdEntity> addSubmit(YfwCjdEntity yfwCjdEntity) {
 
@@ -32,7 +43,8 @@ public class YfwCjdServiceImpl extends BaseApiService<YfwCjdEntity> implements Y
         if (yfwCjdEntity == null) {
             return setResultError(Constants.HTTP_RES_CODE_201, "参数对象为空");
         }
-        //.访问数据库
+
+        //.添加yfwcjd数据
         if (yfwCjdMapper.insertSubmit(yfwCjdEntity) <= 0) {
             return setResultError(Constants.HTTP_RES_CODE_500, "添加失败");
         }
@@ -43,5 +55,8 @@ public class YfwCjdServiceImpl extends BaseApiService<YfwCjdEntity> implements Y
         }
         return setResult(Constants.HTTP_RES_CODE_200, Constants.HTTP_RES_CODE_200_VALUE, yfwCjdEntityResult);
     }
+
+
+
 
 }
