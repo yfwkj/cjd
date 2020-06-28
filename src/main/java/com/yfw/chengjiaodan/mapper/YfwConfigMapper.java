@@ -1,6 +1,6 @@
 package com.yfw.chengjiaodan.mapper;
 
-import com.mapper.entity.YfwConfigEntity;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
