@@ -44,7 +44,16 @@ public class YfwCjdServiceImpl extends BaseApiService<YfwCjdEntity> implements Y
         if (yfwCjdEntity == null) {
             return setResultError(Constants.HTTP_RES_CODE_201, "参数对象为空");
         }
-
+        //查询yfwConfig表里的value 字段值
+        String yfwConfigValue = yfwConfigMapper.selectYfwConfigValue();
+        int result = Integer.parseInt(yfwConfigValue);
+        //更新value值
+        result += 1;
+        if(yfwConfigMapper.updateYfwConfigValue(result + "") <= 0){
+            return setResultError("更新value值失败");
+        }
+        String stringFormat = String.format("C%010d", result);
+        yfwCjdEntity.setCjNo(stringFormat);
         //.添加yfwcjd数据
         if (yfwCjdMapper.insertSubmit(yfwCjdEntity) <= 0) {
             return setResultError(Constants.HTTP_RES_CODE_500, "添加失败");

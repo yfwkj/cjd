@@ -1,11 +1,10 @@
 package com.yfw.chengjiaodan.mapper.entity;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 
 /**
@@ -53,7 +52,6 @@ public class YfwCjdEntity {
 
     private String qdName;
 
-    @NotBlank(message = "渠道信息手机号码不能为空")
     @Size(min = 11, max = 11, message = "渠道信息手机号码长度不正确")
     @Pattern(regexp = "^(((13[0-9])|(14[579])|(15([0-3]|[5-9]))|(16[6])|(17[0135678])|(18[0-9])|(19[89]))\\d{8})$", message = "渠道信息手机号格式错误")
     private String qdMobi;
@@ -99,8 +97,13 @@ public class YfwCjdEntity {
     private String beizhu;
     private String chengjiaogj;
     private String dianzijy;
-    private Long customId;
-    private Long cjdZt;
+
+    @DecimalMax(value = "999999999",message = "值范围为999999999")
+    private Integer customId;
+
+    @DecimalMax(value = "999999999",message = "值范围为999999999")
+    private Integer cjdZt;
+
     private String createdBy;
 
     @NotBlank(message = "创建时间日期不能为空")
@@ -113,8 +116,8 @@ public class YfwCjdEntity {
     @Pattern(regexp = "^(([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))-02-29)$", message = "更新时间日期格式不正确:YYYY-MM-DD")
     private String updateTime;
 
-    //    @NotNull(message = "del不能为null")
-//    @DecimalMin(value = "0",message = "必须大于0的数字")
-    private Long del = 0L;
+
+    @DecimalMax(value = "99999",message = "值必须小于99999")
+    private Long del;
 
 }
