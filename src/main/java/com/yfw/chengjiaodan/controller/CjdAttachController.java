@@ -7,6 +7,8 @@ import com.yfw.chengjiaodan.base.BaseResponse;
 import com.yfw.chengjiaodan.mapper.entity.YfwCjdAttachEntity;
 import com.yfw.chengjiaodan.service.YfwCjdAttachService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +28,10 @@ public class CjdAttachController extends BaseApiService<JSONObject> {
     private YfwCjdAttachService yfwCjdAttachService;
 
     @RequestMapping("/addSubmit")
-    public BaseResponse<JSONObject> addSubmit(@RequestBody YfwCjdAttachEntity yfwCjdAttachEntity){
+    public BaseResponse<JSONObject> addSubmit(@RequestBody @Validated YfwCjdAttachEntity yfwCjdAttachEntity, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return setResultError(400,bindingResult.getFieldError().getDefaultMessage());
+        }
         if(yfwCjdAttachService.addSubmit(yfwCjdAttachEntity)){
             return setResult(200,"添加成功",null);
         }

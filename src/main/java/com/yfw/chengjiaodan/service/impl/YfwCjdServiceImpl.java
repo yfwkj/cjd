@@ -11,6 +11,7 @@ import com.yfw.chengjiaodan.mapper.entity.YfwCjdEntity;
 import com.yfw.chengjiaodan.service.YfwCjdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 
@@ -37,7 +38,7 @@ public class YfwCjdServiceImpl extends BaseApiService<YfwCjdEntity> implements Y
      * @Param [yfwCjdEntity]
      * @return com.base.BaseResponse<com.mapper.entity.YfwCjdEntity>
      **/
-    @Override
+    @Transactional
     public BaseResponse<YfwCjdEntity> addSubmit(YfwCjdEntity yfwCjdEntity) {
 
         //.验证对象
