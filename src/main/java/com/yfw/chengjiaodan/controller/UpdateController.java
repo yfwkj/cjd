@@ -54,9 +54,7 @@ public class UpdateController extends BaseApiService<JSONObject> {
             JSONObject value = new JSONObject();
             value.put("src",path);
             value.put("thumbnail","");
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("data",value);
-            return setResult(200, "上传成功", jsonObject);
+            return setResult(200, "上传成功", value);
         } catch (Exception e) {
             e.printStackTrace();
         }
