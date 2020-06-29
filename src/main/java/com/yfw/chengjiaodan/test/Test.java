@@ -1,5 +1,8 @@
 package com.yfw.chengjiaodan.test;
 
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+
 /**
  * @ClassName: Test
  * @Description: TODO
@@ -8,6 +11,8 @@ package com.yfw.chengjiaodan.test;
  * @Version: 1.0
  **/
 public class Test {
+
+
     public static void main(String[] args) {
         String result = "C0000000009";
         int i = Integer.parseInt(result.substring(1));
