@@ -25,6 +25,8 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,9 +48,10 @@ public class UpdateController extends BaseApiService<JSONObject> {
 
     @RequestMapping("/upload")
     public BaseResponse<JSONObject> upload(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) {
-
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSS");
+        String currentTimeMillis = dateFormat.format(new Date(System.currentTimeMillis()));
         try {
-            multipartFile.transferTo(new File(multipartFile.getOriginalFilename()));
+            multipartFile.transferTo(new File(currentTimeMillis+".jpg"));
             String path = request.getRequestURL() + "/" + multipartFile.getOriginalFilename();
 
             JSONObject value = new JSONObject();
