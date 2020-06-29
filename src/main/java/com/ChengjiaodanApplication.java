@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan(basePackages = {"com.yfw.chengjiaodan.mapper"})
-
 public class ChengjiaodanApplication {
 
     public static void main(String[] args) {
