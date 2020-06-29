@@ -12,12 +12,12 @@ import lombok.Data;
 @Data
 public class YfwCjdAttachEntity {
 //    private int id;
-    private String cjd_no;
-    private String file_type;
+    private String cjdNo;
+    private String fileType;
     private String url;
     private String thumbnail;
     private String ico;
-    private String created_by;
+    private String createdBy;
 //    private String createdTime;
 //    private String del;
 
