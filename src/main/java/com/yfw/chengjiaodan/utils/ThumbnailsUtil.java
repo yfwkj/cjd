@@ -2,6 +2,8 @@ package com.yfw.chengjiaodan.utils;
 
 import net.coobird.thumbnailator.Thumbnails;
 
+import java.io.InputStream;
+
 /**
  * @ClassName: ThumbnailsUtil
  * @Description: TODO
@@ -20,5 +22,9 @@ public class ThumbnailsUtil {
      **/
     public static void setThumbnails (String sourceFile, double scale, float quality, String outFilePath)  throws Exception {
         Thumbnails.of(sourceFile).scale(scale).outputQuality(quality).toFile(outFilePath);
+    }
+
+    public static void setThumbnails (InputStream inputStream, double scale, float quality, String outFilePath)  throws Exception {
+        Thumbnails.of(inputStream).scale(scale).outputQuality(quality);
     }
 }

@@ -22,7 +22,7 @@ spring:
     multipart:
       enabled: true
       file-size-threshold: 0
-      location: E:/sundry/uploadfile
+#      location: E:/sundry/uploadfile
       max-file-size: 50MB
       max-request-size: 100MB
       resolve-lazily: false
