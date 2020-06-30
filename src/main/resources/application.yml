@@ -26,3 +26,12 @@ spring:
       max-file-size: 50MB
       max-request-size: 100MB
       resolve-lazily: false
+
+mybatis:
+  configuration:
+    #开启驼峰命名
+    map-underscore-to-camel-case: true
+    #开启使用别名替换列名
+    use-column-label: true
+
+  mapper-locations: class:path:com/yfw/chengjiaodan/mapper/*.xml

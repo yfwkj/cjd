@@ -25,6 +25,6 @@ public class ThumbnailsUtil {
     }
 
     public static void setThumbnails (InputStream inputStream, double scale, float quality, String outFilePath)  throws Exception {
-        Thumbnails.of(inputStream).scale(scale).outputQuality(quality);
+        Thumbnails.of(inputStream).scale(scale).outputQuality(quality).toFile(outFilePath);
     }
 }
