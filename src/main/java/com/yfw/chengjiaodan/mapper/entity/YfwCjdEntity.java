@@ -2,6 +2,7 @@ package com.yfw.chengjiaodan.mapper.entity;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnNotWebApplication;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -77,6 +78,7 @@ public class YfwCjdEntity {
     @NotBlank(message = "接待姓名不能为空")
     private String jdName;
 
+    //接待电话必填
     @NotBlank(message = "接待手机号码不能为空")
     //@Size(min = 11, max = 11, message = "接待手机号码长度不正确")
     //@Pattern(regexp = "^(((13[0-9])|(14[579])|(15([0-3]|[5-9]))|(16[6])|(17[0135678])|(18[0-9])|(19[89]))\\d{8})$", message = "接待手机号格式错误")
@@ -99,8 +101,8 @@ public class YfwCjdEntity {
     private String addDept;
     private String postAddr;
 
-    @NotBlank(message = "签约日期不能为空")
-    @Pattern(regexp = "^(([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))-02-29)$", message = "签约时间日期格式不正确:YYYY-MM-DD")
+    //@NotBlank(message = "签约日期不能为空")
+    //@Pattern(regexp = "^(([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))-02-29)$", message = "签约时间日期格式不正确:YYYY-MM-DD")
     private String qyDate;
 
     private String lpName;
@@ -109,10 +111,17 @@ public class YfwCjdEntity {
     private String contractNo;
     private String lpDong;
     private String lpDanyuan;
+
+    //房号必填
+    @NotBlank(message = "房号不能为空")
     private String lpFanghao;
+
     private String price;
     private String priceDiscount;
     private String amount;
+
+    //折后总价必填
+    @NotBlank(message = "折后总价不能为空")
     private String amountDiscount;
 
     //付款方式必填
