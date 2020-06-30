@@ -1,10 +1,17 @@
 package com.yfw.chengjiaodan.controller;
 
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.alibaba.fastjson.JSONObject;
 import com.yfw.chengjiaodan.base.BaseApiService;
 import com.yfw.chengjiaodan.base.BaseResponse;
+import com.yfw.chengjiaodan.utils.ThumbnailsUtil;
 import lombok.extern.slf4j.Slf4j;
+import net.coobird.thumbnailator.ThumbnailParameter;
+import net.coobird.thumbnailator.Thumbnailator;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.makers.ThumbnailMaker;
+import net.coobird.thumbnailator.util.ThumbnailatorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
@@ -43,17 +50,25 @@ import java.util.Map;
 @Slf4j
 public class UpdateController extends BaseApiService<JSONObject> {
 
-    @Resource
-    private ResourceLoader resourceLoader;
+    @Value("${spring.servlet.multipart.location}")
+    private String location;
 
     @RequestMapping("/upload")
     public BaseResponse<JSONObject> upload(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSS");
         String currentTimeMillis = dateFormat.format(new Date(System.currentTimeMillis()));
         try {
-            multipartFile.transferTo(new File(currentTimeMillis+".jpg"));
+            multipartFile.transferTo(new File(currentTimeMillis + ".jpg"));
             String path = request.getRequestURL() + "/" + multipartFile.getOriginalFilename();
-
+            //源图片路径
+            String sourceFile = location + "/" + currentTimeMillis + ".jpg";
+            //缩放比例
+            Double scale = 0.1;
+            //图片质量
+            Float quality = 1.0f;
+            //图片输出路径
+            String outFilePath = location + "/" + currentTimeMillis + "thumbnails.jpg";
+            ThumbnailsUtil.setThumbnails(sourceFile,scale,quality,outFilePath);
             JSONObject value = new JSONObject();
             value.put("src",path);
             value.put("thumbnail","");
