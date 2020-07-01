@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ import java.util.Map;
 @Slf4j
 public class YfwCjdAttachServiceImpl implements YfwCjdAttachService {
 
-    @Autowired
+    @Resource(type = YfwCjdAttachMapper.class)
     private YfwCjdAttachMapper yfwCjdAttachMapper;
 
     @Override

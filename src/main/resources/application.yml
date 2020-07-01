@@ -9,8 +9,10 @@ spring:
   datasource:
     username: root
     password: api@yfwkj.com
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.0.248:3306/yfwkj?useUnicode=true&characterEncoding=UTF-8
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://192.168.0.248:3306/yfwkj?useUnicode=true&characterEncoding=UTF-8
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:mysql://192.168.0.248:3306/yfwkj?useUnicode=true&characterEncoding=UTF-8
 
     hikari:
       minimum-idle: 3
@@ -27,11 +29,9 @@ spring:
       max-request-size: 100MB
       resolve-lazily: false
 
-mybatis:
-  configuration:
-    #开启驼峰命名
-    map-underscore-to-camel-case: true
-    #开启使用别名替换列名
-    use-column-label: true
-
-  mapper-locations: class:path:com/yfw/chengjiaodan/mapper/*.xml
+#mybatis:
+#  configuration:
+#    #开启驼峰命名
+#    map-underscore-to-camel-case: true
+#    #开启使用别名替换列名
+#    use-column-label: true
