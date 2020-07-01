@@ -33,8 +33,8 @@ import java.util.List;
 @Configuration
 public class MvcConfigurer implements WebMvcConfigurer {
 
-
-
+    @Autowired(required = false)
+    private String apiUri = "/**";
 
 
     @Override
@@ -95,7 +95,7 @@ public class MvcConfigurer implements WebMvcConfigurer {
                 //  log.info("任务2,白名单直接放行");
                 //  任务3：白名单直接放行
 
-                    return super.preHandle(request, response, handler);  //直接放行。
+                return super.preHandle(request, response, handler);  //直接放行。
 
 
             }
