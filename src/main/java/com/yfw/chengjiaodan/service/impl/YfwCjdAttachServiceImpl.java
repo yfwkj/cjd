@@ -1,16 +1,19 @@
 package com.yfw.chengjiaodan.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.yfw.chengjiaodan.mapper.YfwCjdAttachMapper;
 import com.yfw.chengjiaodan.mapper.entity.YfwCjdAttachEntity;
 import com.yfw.chengjiaodan.service.YfwCjdAttachService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @ClassName: YfwCjdAttachServiceImpl
@@ -23,7 +26,7 @@ import java.util.Map;
 @Slf4j
 public class YfwCjdAttachServiceImpl implements YfwCjdAttachService {
 
-    @Resource(type = YfwCjdAttachMapper.class)
+    @Autowired
     private YfwCjdAttachMapper yfwCjdAttachMapper;
 
     @Override
@@ -33,10 +36,23 @@ public class YfwCjdAttachServiceImpl implements YfwCjdAttachService {
     }
 
     @Override
-    public List<Map<String, Object>> findYfwCjdAttach(Integer page, Integer size,String sort) {
-        log.info(yfwCjdAttachMapper.selectYfwCjdAttachPagehelper(sort).toString());
+    public List<Map<String, Object>> findYfwCjdAttach(Integer page, Integer size, String sort, JSONObject search) {
+        //search = {"created_by":"abc","url":"http://///"}
+        //1.json 转成 map
+        //2.遍历map 获得key and value
+        //3.检查value 不为空, a = a + " and key like value"
+        String temp = "";
+        Map<String, Object> searchMap = search.getInnerMap();
+        List<Object> searchValueList = new ArrayList<>();
+        for (String key : searchMap.keySet()) {
+            if(!StringUtils.isEmpty(searchMap.get(key) + "")){
+                temp += " AND " + key +" LIKE "+ "'%" + searchMap.get(key) + "%'" ;
+            }
+        }
+
+
         PageHelper.startPage(page,size);
-        return yfwCjdAttachMapper.selectYfwCjdAttachPagehelper(sort);
+        return yfwCjdAttachMapper.selectYfwCjdAttachPagehelper(sort,temp);
     }
 
 }

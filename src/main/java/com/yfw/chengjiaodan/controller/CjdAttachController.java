@@ -56,11 +56,12 @@ public class CjdAttachController extends BaseApiService<JSONObject> {
      **/
     @RequestMapping("/list")
     public BaseResponse<JSONObject> list(@RequestBody JSONObject values) {
-        Integer page = Integer.parseInt(values.get("page") + "");
-        Integer size = Integer.parseInt(values.get("size") + "");
-        String sort = values.get("sort") + "";
+        Integer page = values.getInteger("page");
+        Integer size = values.getInteger("size");
+        String sort = values.getString("sort");
+        JSONObject search = values.getJSONObject("search");
         List<Map<String, Object>> listMap =
-                yfwCjdAttachService.findYfwCjdAttach(page, size, sort);
+                yfwCjdAttachService.findYfwCjdAttach(page, size, sort, search);
         PageInfo<Map<String, Object>> mapPageInfo = new PageInfo<>(listMap);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("Pages", page);
