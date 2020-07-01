@@ -56,7 +56,6 @@ public class UpLoadServiceImpl extends BaseApiService<JSONObject> implements UpL
             ThumbnailsUtil.setThumbnails(file.getInputStream(),scale,quality,outFilePath);
             localFile = new File(outFilePath);
             inputStream = new FileInputStream(localFile);
-            System.out.println(localFile.getName());
             thumbnailsFile = new MockMultipartFile(localFile.getName(), localFile.getName(), file.getContentType(), inputStream);
             result = RestTempLateUpLoadFDW.getRresponseBody(thumbnailsFile, restTemplate);
         } catch (Exception e) {
