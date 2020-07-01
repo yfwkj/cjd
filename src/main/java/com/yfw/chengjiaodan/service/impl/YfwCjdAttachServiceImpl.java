@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.yfw.chengjiaodan.mapper.YfwCjdAttachMapper;
 import com.yfw.chengjiaodan.mapper.entity.YfwCjdAttachEntity;
 import com.yfw.chengjiaodan.service.YfwCjdAttachService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ import java.util.Map;
  * @Version: 1.0
  **/
 @Service
+@Slf4j
 public class YfwCjdAttachServiceImpl implements YfwCjdAttachService {
 
     @Autowired
@@ -31,11 +33,9 @@ public class YfwCjdAttachServiceImpl implements YfwCjdAttachService {
 
     @Override
     public List<Map<String, Object>> findYfwCjdAttach(Integer page, Integer size,String sort) {
+        log.info(yfwCjdAttachMapper.selectYfwCjdAttachPagehelper(sort).toString());
         PageHelper.startPage(page,size);
         return yfwCjdAttachMapper.selectYfwCjdAttachPagehelper(sort);
     }
 
-    public Integer findYfwCjdAttachSize(){
-        return yfwCjdAttachMapper.selectYfwCjdAttachSize();
-    }
 }

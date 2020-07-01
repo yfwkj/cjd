@@ -11,5 +11,4 @@ public interface YfwCjdAttachService {
 
     List<Map<String,Object>> findYfwCjdAttach(Integer page,Integer size,String sort);
 
-    Integer findYfwCjdAttachSize();
 }
