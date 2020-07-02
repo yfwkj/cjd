@@ -3,6 +3,7 @@ package com.yfw.chengjiaodan.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.yfw.chengjiaodan.mapper.YfwCjdAttachMapper;
+import com.yfw.chengjiaodan.mapper.entity.StaffVoEntity;
 import com.yfw.chengjiaodan.mapper.entity.YfwCjdAttachEntity;
 import com.yfw.chengjiaodan.service.YfwCjdAttachService;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +29,7 @@ public class YfwCjdAttachServiceImpl implements YfwCjdAttachService {
 
     @Override
     public Boolean addSubmit(YfwCjdAttachEntity yfwCjdAttachEntity) {
-        System.out.println(Integer.parseInt(yfwCjdAttachEntity.getFileType()));
+
         return yfwCjdAttachMapper.insertYfwCjdAttach(yfwCjdAttachEntity) > 0 ? true : false;
     }
 
@@ -48,6 +49,11 @@ public class YfwCjdAttachServiceImpl implements YfwCjdAttachService {
             sort = "id";
         }
         return yfwCjdAttachMapper.selectYfwCjdAttachPagehelper(sort, temp);
+    }
+
+    @Override
+    public StaffVoEntity findStaff(String id) {
+        return yfwCjdAttachMapper.selectStaff(id);
     }
 
 }

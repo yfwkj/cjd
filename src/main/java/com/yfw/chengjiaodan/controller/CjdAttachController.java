@@ -5,8 +5,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.yfw.chengjiaodan.base.BaseApiService;
 import com.yfw.chengjiaodan.base.BaseResponse;
+import com.yfw.chengjiaodan.mapper.entity.StaffVoEntity;
 import com.yfw.chengjiaodan.mapper.entity.YfwCjdAttachEntity;
 import com.yfw.chengjiaodan.service.YfwCjdAttachService;
+import com.yfw.chengjiaodan.utils.UserUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +43,11 @@ public class CjdAttachController extends BaseApiService<JSONObject> {
     @RequestMapping("/addSubmit")
     public BaseResponse<JSONObject> addSubmit(@RequestBody @Validated YfwCjdAttachEntity yfwCjdAttachEntity, BindingResult bindingResult) {
         log.info("/cjd/cjdAttach/addSubmit");
+        StaffVoEntity staff =  UserUtil.getTokenStaff(yfwCjdAttachService);
+        if(staff == null){
+            return setResultError("可能因为token已经超时或非法token");
+        }
+        yfwCjdAttachEntity.setCreatedBy(staff.getName());
         if (bindingResult.hasErrors()) {
             return setResultError(400, bindingResult.getFieldError().getDefaultMessage());
         }

@@ -1,7 +1,12 @@
 package com.yfw.chengjiaodan.mapper;
 
+import com.yfw.chengjiaodan.mapper.entity.YfwCjdAttachEntity;
 import com.yfw.chengjiaodan.mapper.entity.YfwCjdYjblEntity;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 public interface YfwCjdYjblMapper {
 
@@ -17,4 +22,14 @@ public interface YfwCjdYjblMapper {
             "\t\t\t     yeji_amount = #{yejiAmount}, tex_rate = #{texRate}, tex_amount = #{texAmount}, is_salaryok = #{isSalaryok}, is_netsell = #{isNetsell},\n" +
             "\t\t\t     created_by = #{createdBy}, created_time = NOW(), del = #{del}")
     Integer insertYfwCjdYjbl(YfwCjdYjblEntity yfwCjdYjblEntity);
+
+    /**
+     * @Author Chenyz
+     * @Description //TODO
+     * @Date 16:30 2020/7/2
+     * @Param [sort, search]
+     * @return java.util.List<com.yfw.chengjiaodan.mapper.entity.YfwCjdAttachEntity>
+     **/
+    @Select("SELECT * FROM yfw_cjd_yjbl where 1 = 1 ${search} ORDER BY ${sort}")
+    List<YfwCjdYjblEntity> selectYfwCjdYjblPagehelper(@Param("sort") String sort, @Param("search") String search);
 }
