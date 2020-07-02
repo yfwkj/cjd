@@ -58,7 +58,7 @@ public class YfwCjdYjblEntity {
     //工资未结
     private String isSalaryok;
 
-    //工资未结
+    //网销
     private String isNetsell;
 
     private String createdBy;

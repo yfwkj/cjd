@@ -29,6 +29,7 @@ public class YfwCjdYjblController extends BaseApiService<JSONObject> {
 
     @PostMapping("/addSubmit")
     public BaseResponse<JSONObject> addSubmit(@RequestBody YfwCjdYjblEntity yfwCjdYjblEntity){
+        log.info("/cjd/cjdbili/addSubmit");
         if(!yfwCjdYjblService.addSubmit(yfwCjdYjblEntity)){
             return setResultError("添加失败");
         }

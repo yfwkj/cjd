@@ -2,6 +2,7 @@ package com.yfw.chengjiaodan.service.impl;
 
 
 
+import com.github.pagehelper.PageHelper;
 import com.yfw.chengjiaodan.base.BaseApiService;
 import com.yfw.chengjiaodan.base.BaseResponse;
 import com.yfw.chengjiaodan.constants.Constants;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName: YfwCjdServiceImpl
@@ -67,7 +70,11 @@ public class YfwCjdServiceImpl extends BaseApiService<YfwCjdEntity> implements Y
         return setResult(Constants.HTTP_RES_CODE_200, Constants.HTTP_RES_CODE_200_VALUE, yfwCjdEntityResult);
     }
 
-
+    @Override
+    public List<Map<String, Object>> findYfwCjdList(Integer page,Integer size,String sort) {
+        PageHelper.startPage(page,size);
+        return yfwCjdMapper.selectYfwCjdList(sort);
+    }
 
 
 }

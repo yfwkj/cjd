@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
 import java.util.Map;
 
 public interface YfwCjdMapper {
@@ -54,4 +55,14 @@ public interface YfwCjdMapper {
             "\t\t\tchengjiaogj AS chengjiaogj ,dianzijy AS dianzijy ,custom_id AS customId ,cjd_zt AS cjdZt ,created_by AS createdBy,\n" +
             "\t\t\tDATE_FORMAT(created_time,'%Y-%m-%d') AS createdTime ,update_by AS updateBy ,DATE_FORMAT(update_time,'%Y-%m-%d') AS updateTime ,del AS del FROM yfw_cjd WHERE id = #{id}")
     YfwCjdEntity selectYfwCjdEntity(@Param("id") Integer id);
+
+    /**
+     * @Author Chenyz
+     * @Description 模糊查询 倒排序 分页
+     * @Date 9:02 2020/7/2
+     * @Param [sort]
+     * @return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     **/
+    @Select("SELECT * FROM yfw_cjd ORDER BY ${sort}")
+    List<Map<String,Object>> selectYfwCjdList(@Param("sort") String sort);
 }
