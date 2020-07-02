@@ -44,9 +44,9 @@ public class YfwCjdAttachServiceImpl implements YfwCjdAttachService {
                 temp += " AND " + key + " LIKE " + "'%" + searchMap.get(key) + "%'";
             }
         }
-//        if(StringUtils.isEmpty(sort)){
-//            sort = "id";
-//        }
+        if(StringUtils.isEmpty(sort)){
+            sort = "id";
+        }
         return yfwCjdAttachMapper.selectYfwCjdAttachPagehelper(sort, temp);
     }
 
