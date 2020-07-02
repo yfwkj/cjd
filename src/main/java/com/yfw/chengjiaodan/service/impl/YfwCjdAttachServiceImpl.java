@@ -10,10 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @ClassName: YfwCjdAttachServiceImpl
@@ -36,7 +33,7 @@ public class YfwCjdAttachServiceImpl implements YfwCjdAttachService {
     }
 
     @Override
-    public List<Map<String, Object>> findYfwCjdAttach(Integer page, Integer size, String sort, JSONObject search) {
+    public List<YfwCjdAttachEntity> findYfwCjdAttach(Integer page, Integer size, String sort, JSONObject search) {
         PageHelper.startPage(page, size);
         String temp = "";
         Map<String, Object> searchMap = search.getInnerMap();
@@ -47,8 +44,9 @@ public class YfwCjdAttachServiceImpl implements YfwCjdAttachService {
                 temp += " AND " + key + " LIKE " + "'%" + searchMap.get(key) + "%'";
             }
         }
-
-
+//        if(StringUtils.isEmpty(sort)){
+//            sort = "id";
+//        }
         return yfwCjdAttachMapper.selectYfwCjdAttachPagehelper(sort, temp);
     }
 

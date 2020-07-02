@@ -11,6 +11,6 @@ public interface YfwCjdAttachService {
 
     Boolean addSubmit(YfwCjdAttachEntity yfwCjdAttachEntity);
 
-    List<Map<String,Object>> findYfwCjdAttach(Integer page, Integer size, String sort, JSONObject search);
+    List<YfwCjdAttachEntity> findYfwCjdAttach(Integer page, Integer size, String sort, JSONObject search);
 
 }

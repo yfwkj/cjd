@@ -15,6 +15,6 @@ public interface YfwCjdAttachMapper {
     Integer insertYfwCjdAttach(YfwCjdAttachEntity yfwCjdAttachEntity);
 
     @Select("SELECT * FROM yfw_cjd_attach where 1 = 1 ${search} ORDER BY ${sort}")
-    List<Map<String,Object>> selectYfwCjdAttachPagehelper(@Param("sort") String sort,@Param("search") String search);
+    List<YfwCjdAttachEntity> selectYfwCjdAttachPagehelper(@Param("sort") String sort, @Param("search") String search);
 
 }
