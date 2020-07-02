@@ -39,6 +39,7 @@ public class CjdAttachController extends BaseApiService<JSONObject> {
 
     @RequestMapping("/addSubmit")
     public BaseResponse<JSONObject> addSubmit(@RequestBody @Validated YfwCjdAttachEntity yfwCjdAttachEntity, BindingResult bindingResult) {
+        log.info("/cjd/cjdAttach/addSubmit");
         if (bindingResult.hasErrors()) {
             return setResultError(400, bindingResult.getFieldError().getDefaultMessage());
         }
@@ -57,6 +58,7 @@ public class CjdAttachController extends BaseApiService<JSONObject> {
      **/
     @RequestMapping("/list")
     public BaseResponse<JSONObject> list(@RequestBody JSONObject values) {
+        log.info("/cjd/cjdAttach/list");
         String orders = "正序";
         String page = values.getString("page");
         Integer pageInt = 0;
@@ -79,12 +81,12 @@ public class CjdAttachController extends BaseApiService<JSONObject> {
         log.info(listMap.toString());
         PageInfo<Map<String, Object>> mapPageInfo = new PageInfo<>(listMap);
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("Pages", page);
-        jsonObject.put("Orders", orders);
-        jsonObject.put("Size", mapPageInfo.getSize());
-        jsonObject.put("Total", mapPageInfo.getTotal());
-        jsonObject.put("Current", mapPageInfo.getPageNum() + 1);
-        jsonObject.put("Records", mapPageInfo.getList());
+        jsonObject.put("pages", page);
+        jsonObject.put("orders", orders);
+        jsonObject.put("size", mapPageInfo.getSize());
+        jsonObject.put("total", mapPageInfo.getTotal());
+        jsonObject.put("current", mapPageInfo.getPageNum() + 1);
+        jsonObject.put("records", mapPageInfo.getList());
         return setResult(200, "", jsonObject);
     }
 

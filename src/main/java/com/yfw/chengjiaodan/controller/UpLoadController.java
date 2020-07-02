@@ -51,6 +51,7 @@ public class UpLoadController extends BaseApiService<JSONObject> {
 
     @RequestMapping("/upload")
     public BaseResponse<JSONObject> upload(@RequestBody MultipartFile file) {
+        log.info("/cjd/cjdAttach/upload");
         return upLoadService.upload(file);
     }
 
