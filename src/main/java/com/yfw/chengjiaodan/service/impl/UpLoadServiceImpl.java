@@ -50,7 +50,7 @@ public class UpLoadServiceImpl extends BaseApiService<JSONObject> implements UpL
         //图片质量
         Float quality = 1.0f;
         //图片输出路径
-        String outFilePath = "thumbnails.jpg";
+        String outFilePath = "thumbnails" + file.getOriginalFilename();
 
         try {
             ThumbnailsUtil.setThumbnails(file.getInputStream(),scale,quality,outFilePath);
