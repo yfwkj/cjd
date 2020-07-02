@@ -37,22 +37,19 @@ public class YfwCjdAttachServiceImpl implements YfwCjdAttachService {
 
     @Override
     public List<Map<String, Object>> findYfwCjdAttach(Integer page, Integer size, String sort, JSONObject search) {
-        //search = {"created_by":"abc","url":"http://///"}
-        //1.json 转成 map
-        //2.遍历map 获得key and value
-        //3.检查value 不为空, a = a + " and key like value"
+        PageHelper.startPage(page, size);
         String temp = "";
         Map<String, Object> searchMap = search.getInnerMap();
         List<Object> searchValueList = new ArrayList<>();
         for (String key : searchMap.keySet()) {
-            if(!StringUtils.isEmpty(searchMap.get(key) + "")){
-                temp += " AND " + key +" LIKE "+ "'%" + searchMap.get(key) + "%'" ;
+            if (!StringUtils.isEmpty(searchMap.get(key) + "")) {
+                //拼接模糊查询
+                temp += " AND " + key + " LIKE " + "'%" + searchMap.get(key) + "%'";
             }
         }
 
 
-        PageHelper.startPage(page,size);
-        return yfwCjdAttachMapper.selectYfwCjdAttachPagehelper(sort,temp);
+        return yfwCjdAttachMapper.selectYfwCjdAttachPagehelper(sort, temp);
     }
 
 }

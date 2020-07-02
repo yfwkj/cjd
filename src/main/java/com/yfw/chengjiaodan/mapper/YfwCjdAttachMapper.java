@@ -14,7 +14,7 @@ public interface YfwCjdAttachMapper {
     @Insert("INSERT INTO yfw_cjd_attach SET cjd_no=#{cjdNo},file_type=#{fileType},url=#{url},ico=#{ico},created_by=#{createdBy},thumbnail=#{thumbnail};")
     Integer insertYfwCjdAttach(YfwCjdAttachEntity yfwCjdAttachEntity);
 
-    @Select("SELECT * FROM yfw_cjd_attach where 1 > 0 ${search} ORDER BY ${sort} DESC")
+    @Select("SELECT * FROM yfw_cjd_attach where 1 > 0 ${search} ORDER BY ${sort}")
     List<Map<String,Object>> selectYfwCjdAttachPagehelper(@Param("sort") String sort,@Param("search") String search);
 
 }

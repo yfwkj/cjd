@@ -8,6 +8,7 @@ import com.yfw.chengjiaodan.base.BaseResponse;
 import com.yfw.chengjiaodan.mapper.entity.YfwCjdAttachEntity;
 import com.yfw.chengjiaodan.service.YfwCjdAttachService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -56,12 +57,20 @@ public class CjdAttachController extends BaseApiService<JSONObject> {
      **/
     @RequestMapping("/list")
     public BaseResponse<JSONObject> list(@RequestBody JSONObject values) {
-        Integer page = values.getInteger("page");
-        Integer size = values.getInteger("size");
+        String page = values.getString("page");
+        Integer pageInt = 0;
+        if(!StringUtils.isEmpty(page)){
+            pageInt = Integer.parseInt(page);
+        }
+        String size = values.getString("size");
+        Integer sizeInt = 5;
+        if(!StringUtils.isEmpty(size)){
+            sizeInt = Integer.parseInt(size);
+        }
         String sort = values.getString("sort");
         JSONObject search = values.getJSONObject("search");
         List<Map<String, Object>> listMap =
-                yfwCjdAttachService.findYfwCjdAttach(page, size, sort, search);
+                yfwCjdAttachService.findYfwCjdAttach(pageInt, sizeInt, sort, search);
         PageInfo<Map<String, Object>> mapPageInfo = new PageInfo<>(listMap);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("Pages", page);
