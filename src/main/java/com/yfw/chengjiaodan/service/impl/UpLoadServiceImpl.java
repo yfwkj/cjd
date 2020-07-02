@@ -50,7 +50,7 @@ public class UpLoadServiceImpl extends BaseApiService<JSONObject> implements UpL
         //图片质量
         Float quality = 1.0f;
         //图片输出路径
-        String outFilePath = "E:/sundry/uploadfile/thumbnails.jpg";
+        String outFilePath = "uploadfile/thumbnails.jpg";
 
         try {
             ThumbnailsUtil.setThumbnails(file.getInputStream(),scale,quality,outFilePath);
@@ -69,6 +69,7 @@ public class UpLoadServiceImpl extends BaseApiService<JSONObject> implements UpL
         JSONObject value = new JSONObject();
         value.put("src", src1.get("src"));
         value.put("thumbnail", src2.get("src"));
+        localFile.delete();
         return setResult(200, "上传成功", value);
     }
 }

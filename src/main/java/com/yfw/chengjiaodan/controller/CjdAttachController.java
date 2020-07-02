@@ -57,27 +57,33 @@ public class CjdAttachController extends BaseApiService<JSONObject> {
      **/
     @RequestMapping("/list")
     public BaseResponse<JSONObject> list(@RequestBody JSONObject values) {
+        String orders = "正序";
         String page = values.getString("page");
         Integer pageInt = 0;
-        if(!StringUtils.isEmpty(page)){
+        if (!StringUtils.isEmpty(page)) {
             pageInt = Integer.parseInt(page);
         }
         String size = values.getString("size");
         Integer sizeInt = 5;
-        if(!StringUtils.isEmpty(size)){
+        if (!StringUtils.isEmpty(size)) {
             sizeInt = Integer.parseInt(size);
         }
         String sort = values.getString("sort");
+//        orders = sort.substring(sort.indexOf(" ")).replaceAll(" ","");
+//        if("desc".equals(orders) || "DESC".equals(orders)){
+//            orders = "倒序";
+//        }
         JSONObject search = values.getJSONObject("search");
         List<Map<String, Object>> listMap =
                 yfwCjdAttachService.findYfwCjdAttach(pageInt, sizeInt, sort, search);
         PageInfo<Map<String, Object>> mapPageInfo = new PageInfo<>(listMap);
+        log.info(mapPageInfo.toString());
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("Pages", page);
-        jsonObject.put("Orders", "");
+        jsonObject.put("Orders", orders);
         jsonObject.put("Size", mapPageInfo.getSize());
         jsonObject.put("Total", mapPageInfo.getTotal());
-        jsonObject.put("Current", 1);
+        jsonObject.put("Current", mapPageInfo.getPageNum() + 1);
         jsonObject.put("Records", mapPageInfo.getList());
         return setResult(200, "", jsonObject);
     }
