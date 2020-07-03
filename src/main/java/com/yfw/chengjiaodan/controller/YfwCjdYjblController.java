@@ -76,4 +76,12 @@ public class YfwCjdYjblController extends BaseApiService<JSONObject> {
         return setResult(200, "", jsonObject);
     }
 
+    @PostMapping("/del")
+    public BaseResponse<JSONObject> del(@RequestBody JSONObject id){
+        if(yfwCjdYjblService.moveCjdYjblById(id)){
+            return setResultSuccess("删除成功");
+        }
+        return setResultError("删除失败");
+    }
+
 }
