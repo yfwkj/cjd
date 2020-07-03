@@ -1,27 +1,24 @@
 package com.yfw.chengjiaodan.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.chtwm.component.constant.SecretConstant;
+import com.chtwm.component.secret.AESSecretUtil;
+import com.chtwm.component.util.JwtHelper;
+import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.nio.charset.Charset;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -33,8 +30,8 @@ import java.util.List;
 @Configuration
 public class MvcConfigurer implements WebMvcConfigurer {
 
-    @Autowired(required = false)
-    private String apiUri = "/**";
+
+
 
 
     @Override
@@ -63,43 +60,40 @@ public class MvcConfigurer implements WebMvcConfigurer {
         interceptorRegistry.addInterceptor(new HandlerInterceptorAdapter() {
             @Override
             public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
-                //  任务1：白名单无token 不阻止
-//                log.info("进入mvc拦截器");
-                //  Eolinker User-Token
-                //  解决跨域问题  2020-1-8 增加多源访问
-                //  任务1：解决跨域问题yfw_adminlog
-                String[] whiteList = {"http://www.yf.com", "http://127.0.0.1", "http://www.fangdianwang.com", "http://www.yuefangwang.com"};
-                String myOrigin = request.getHeader("origin");
-                boolean domainIsValid = false;
-                for (String ip : whiteList) {
-                    if (myOrigin != null && myOrigin.equals(ip)) {
-                        domainIsValid = true;
-                        break;
-                    }
-                }
-                // 任务2：设置请求头信息
-//                    log.info("任务1：设置请求头信息");
                 HttpServletRequest httpServletRequest = (HttpServletRequest) request;
                 httpServletRequest.getSession();
                 HttpServletResponse httpResponse = (HttpServletResponse) response;
-                httpResponse.setHeader("Access-Control-Allow-Origin", domainIsValid ? myOrigin : "null");
-                httpResponse.setHeader("Access-Control-Allow-Methods", "*");
-                httpResponse.setHeader("Access-Control-Max-Age", "3600");
-                httpResponse.setHeader("Access-Control-Allow-Headers", "Origin,User-Token, X-Requested-With, Content-Type, Accept, Connection, User-Agent, Cookie");
-                httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
-                httpResponse.setHeader("Content-type", "application/json");
-                httpResponse.setHeader("Cache-Control", "no-cache, must-revalidate");
-                //  首先从请求头中获取jwt串，与页面约定好存放jwt值的请求头属性名为User-Token
-                //  登录获取jwt地址白名单，这些地址无需检查jwt有效性，直接放行。
-                //  log.info("任务2,白名单直接放行");
-                //  任务3：白名单直接放行
+                String jwt = request.getHeader("User-Token");
+                if (jwt == null) {
+                    return false;
+                }
+                if (jwt.equals("Eolinker User-Token")) {
+                    return super.preHandle(request, response, handler);
+                }
+                String method = request.getMethod();
+                if ("OPTIONS".equals(request.getMethod().toString())) {
+                    return super.preHandle(request, response, handler);
+                }
+                if (StringUtils.isNotBlank(jwt)) {
+                    String retJson = JwtHelper.validateLogin(jwt);
+                    if (StringUtils.isNotBlank(retJson)) {
+                        JSONObject jsonObject = JSONObject.parseObject(retJson);
+                        String userAgent = httpServletRequest.getHeader("User-Agent");
+                        if (userAgent.equals(jsonObject.getString("userAgent"))) {
+                            Claims claims = JwtHelper.parseJWT(jwt);
+                            String token = JwtHelper.generateJWT((String) claims.get("userId"), (String) claims.get("userName"), userAgent);
+                            httpResponse.setHeader("User-Token", jsonObject.getString("freshToken"));
+                            httpResponse.setHeader("Access-Control-Expose-Headers", "User-Token");
+                            httpResponse.setHeader("Access-Control-Allow-Headers", "Origin,User-Token, X-Requested-With, Content-Type, Accept, Connection, User-Agent, Cookie, token");
+//                            获取ID
+                            int userId = (Integer.parseInt(AESSecretUtil.decryptToStr((String) claims.get("userId"), SecretConstant.DATAKEY)));
 
-                return super.preHandle(request, response, handler);  //直接放行。
-
-
+                            return true;
+                        }
+                    }
+                }
+                return super.preHandle(request, response, handler);
             }
-        });
-
-    }
+    } );
+}
 }

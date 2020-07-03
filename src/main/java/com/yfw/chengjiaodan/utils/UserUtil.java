@@ -1,9 +1,12 @@
 package com.yfw.chengjiaodan.utils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chtwm.component.constant.SecretConstant;
+import com.chtwm.component.secret.AESSecretUtil;
 import com.chtwm.component.util.JwtHelper;
 import com.yfw.chengjiaodan.mapper.entity.StaffVoEntity;
 import com.yfw.chengjiaodan.service.YfwCjdAttachService;
+import io.jsonwebtoken.Claims;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -30,7 +33,9 @@ public class UserUtil {
         if(jsonObject == null){
             return null;
         }
-        Integer userId = jsonObject.getInteger("userId");
+        Claims claims = JwtHelper.parseJWT(jwt);
+        //Integer userId = jsonObject.getInteger("userId");
+        int userId = (Integer.parseInt(AESSecretUtil.decryptToStr((String) claims.get("userId"), SecretConstant.DATAKEY)));
         return yfwCjdAttachService.findStaff(userId + "");
 
 
