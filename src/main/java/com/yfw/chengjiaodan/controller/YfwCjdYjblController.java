@@ -65,7 +65,6 @@ public class YfwCjdYjblController extends BaseApiService<JSONObject> {
         JSONObject search = values.getJSONObject("search");
         List<YfwCjdYjblEntity> listYfwCjdYjblEntity =
                 yfwCjdYjblService.findYfwCjdYjbl(pageInt, sizeInt, sort, search);
-        log.info(listYfwCjdYjblEntity.toString());
         PageInfo<YfwCjdYjblEntity> mapPageInfo = new PageInfo<>(listYfwCjdYjblEntity);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("pages", page);

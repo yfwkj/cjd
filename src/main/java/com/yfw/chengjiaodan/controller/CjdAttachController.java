@@ -86,7 +86,6 @@ public class CjdAttachController extends BaseApiService<JSONObject> {
         JSONObject search = values.getJSONObject("search");
         List<YfwCjdAttachEntity> listYfwCjdAttach =
                 yfwCjdAttachService.findYfwCjdAttach(pageInt, sizeInt, sort, search);
-        log.info(listYfwCjdAttach.toString());
         PageInfo<YfwCjdAttachEntity> mapPageInfo = new PageInfo<>(listYfwCjdAttach);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("pages", page);
