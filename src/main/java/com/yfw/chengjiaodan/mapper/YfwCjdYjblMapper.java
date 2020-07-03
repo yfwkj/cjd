@@ -32,4 +32,6 @@ public interface YfwCjdYjblMapper {
      **/
     @Select("SELECT * FROM yfw_cjd_yjbl where 1 = 1 ${search} ORDER BY ${sort}")
     List<YfwCjdYjblEntity> selectYfwCjdYjblPagehelper(@Param("sort") String sort, @Param("search") String search);
+
+    Integer updateCjdYjblById(@Param("id") String id);
 }

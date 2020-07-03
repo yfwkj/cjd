@@ -64,16 +64,34 @@ public class MvcConfigurer implements WebMvcConfigurer {
                 httpServletRequest.getSession();
                 HttpServletResponse httpResponse = (HttpServletResponse) response;
                 String jwt = request.getHeader("User-Token");
-
-                String[] whiteApiList = { "/cjd/cjdAttach/upload"};
                 String myRequestURI = request.getRequestURI();
                 boolean myRequestURIisValid = false;
+                String[] whiteApiList = {"/cjd/cjdAttach/upload"};
                 for (String url : whiteApiList) {
                     if (myRequestURI != null && myRequestURI.equals(url)) {
                         myRequestURIisValid = true;
                         break;
                     }
                 }
+                String myOrigin = request.getHeader("origin");
+                boolean domainIsValid = false;
+                String[] whiteList = {"http://www.yf.com", "http://127.0.0.1", "http://www.fangdianwang.com", "http://www.yuefangwang.com"};
+
+                for (String ip : whiteList) {
+                    if (myOrigin != null && myOrigin.equals(ip)) {
+                        domainIsValid = true;
+                        break;
+                    }
+                }
+                httpResponse.setHeader("Access-Control-Allow-Origin", domainIsValid ? myOrigin : "null");
+                httpResponse.setHeader("Access-Control-Allow-Methods", "*");
+                httpResponse.setHeader("Access-Control-Max-Age", "3600");
+                httpResponse.setHeader("Access-Control-Allow-Headers", "Origin,User-Token, X-Requested-With, Content-Type, Accept, Connection, User-Agent, Cookie");
+                httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
+                httpResponse.setHeader("Content-type", "application/json");
+                httpResponse.setHeader("Cache-Control", "no-cache, must-revalidate");
+
+
                 if (myRequestURIisValid) {
                     return super.preHandle(request, response, handler);  //直接放行。
                 }
@@ -81,6 +99,7 @@ public class MvcConfigurer implements WebMvcConfigurer {
                 if (jwt == null) {
                     return false;
                 }
+
                 if (jwt.equals("Eolinker User-Token")) {
                     return super.preHandle(request, response, handler);
                 }
