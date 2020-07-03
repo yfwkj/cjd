@@ -14,10 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import javax.annotation.Resource;
@@ -99,6 +96,21 @@ public class CjdAttachController extends BaseApiService<JSONObject> {
         jsonObject.put("current", mapPageInfo.getPageNum() + 1);
         jsonObject.put("records", mapPageInfo.getList());
         return setResult(200, "", jsonObject);
+    }
+
+    /**
+     * @Author Chenyz
+     * @Description 返回200成功 500失败
+     * @Date 14:48 2020/7/3
+     * @Param [id]
+     * @return com.yfw.chengjiaodan.base.BaseResponse<com.alibaba.fastjson.JSONObject>
+     **/
+    @PostMapping("/del")
+    public BaseResponse<JSONObject> del(@RequestBody JSONObject id){
+        if(yfwCjdAttachService.moveCjdAttachById(id)){
+            return setResultSuccess("删除成功");
+        }
+        return setResultError("删除失败");
     }
 
 }

@@ -58,4 +58,22 @@ public class YfwCjdAttachServiceImpl implements YfwCjdAttachService {
         return yfwCjdAttachMapper.selectStaff(id);
     }
 
+    /**
+     * @Author Chenyz
+     * @Description 修改表del 字段状态
+     * @Date 14:45 2020/7/3
+     * @Param [id]
+     * @return java.lang.Boolean
+     **/
+    @Override
+    public Boolean moveCjdAttachById(JSONObject id) {
+        if(id == null){
+            return false;
+        }
+        String jsonId = id.getString("id");
+        if(StringUtils.isEmpty(jsonId))
+            jsonId = "0";
+        return yfwCjdAttachMapper.updateCjdAttachById(jsonId) > 0 ? true : false;
+    }
+
 }

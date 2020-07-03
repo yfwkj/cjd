@@ -64,9 +64,7 @@ public class MvcConfigurer implements WebMvcConfigurer {
                 httpServletRequest.getSession();
                 HttpServletResponse httpResponse = (HttpServletResponse) response;
                 String jwt = request.getHeader("User-Token");
-                if (jwt == null) {
-                    return false;
-                }
+
                 String[] whiteApiList = { "/cjd/cjdAttach/upload"};
                 String myRequestURI = request.getRequestURI();
                 boolean myRequestURIisValid = false;
@@ -78,6 +76,10 @@ public class MvcConfigurer implements WebMvcConfigurer {
                 }
                 if (myRequestURIisValid) {
                     return super.preHandle(request, response, handler);  //直接放行。
+                }
+
+                if (jwt == null) {
+                    return false;
                 }
                 if (jwt.equals("Eolinker User-Token")) {
                     return super.preHandle(request, response, handler);

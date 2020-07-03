@@ -17,4 +17,12 @@ public interface YfwCjdAttachService {
 
     StaffVoEntity findStaff(@Param("id") String id);
 
+    /**
+     * @Author Chenyz
+     * @Description 更改 del 字段状态
+     * @Date 14:44 2020/7/3
+     * @Param [id]
+     * @return java.lang.Boolean
+     **/
+    Boolean moveCjdAttachById(JSONObject id);
 }
