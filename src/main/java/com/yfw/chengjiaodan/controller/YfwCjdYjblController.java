@@ -55,10 +55,13 @@ public class YfwCjdYjblController extends BaseApiService<JSONObject> {
             sizeInt = Integer.parseInt(size);
         }
         String sort = values.getString("sort");
-//        orders = sort.substring(sort.indexOf(" ")).replaceAll(" ","");
-//        if("desc".equals(orders) || "DESC".equals(orders)){
-//            orders = "倒序";
-//        }
+        String temp = sort;
+        if(temp.contains(" ")){
+            temp = sort.substring(sort.indexOf(" ")).replaceAll(" ","");
+        }
+        if("desc".equals(temp) || "DESC".equals(temp)){
+            orders = "倒序";
+        }
         JSONObject search = values.getJSONObject("search");
         List<YfwCjdYjblEntity> listYfwCjdYjblEntity =
                 yfwCjdYjblService.findYfwCjdYjbl(pageInt, sizeInt, sort, search);
