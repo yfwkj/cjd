@@ -159,8 +159,4 @@ public class YfwCjdEntity {
     private String updateTime;
 
 
-    @Pattern(regexp = "^[0-9]*$",message = "del必须为整数")
-    @Size(min = 0, max = 11, message = "del的值超过最大值范围")
-    private String del;
-
 }

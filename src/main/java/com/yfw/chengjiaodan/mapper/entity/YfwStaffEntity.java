@@ -2,7 +2,6 @@ package com.yfw.chengjiaodan.mapper.entity;
 
 import lombok.Data;
 
-import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 

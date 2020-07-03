@@ -33,7 +33,7 @@ public interface YfwCjdMapper {
             "\t\t\tamount_discount=#{amountDiscount},payment=#{payment},cj_reward=#{cjReward},lp_huxing=#{lpHuxing},\n" +
             "\t\t\tlp_chaoxiang=#{lpChaoxiang},bizhong=#{bizhong},guadan=#{guadan},yongjingbl=#{yongjingbl},beizhu=#{beizhu},\n" +
             "\t\t\tchengjiaogj=#{chengjiaogj},dianzijy=#{dianzijy},custom_id=#{customId},cjd_zt=#{cjdZt},created_by=#{createdBy},\n" +
-            "\t\t\tcreated_time=NOW(),update_by=#{updateBy},update_time=NOW(),del=#{del};")
+            "\t\t\tcreated_time=NOW(),update_by=#{updateBy},update_time=NOW(),del=0;")
     Integer insertSubmit(YfwCjdEntity yfwCjdEntity);
 
 //    @Select("SELECT * FROM yfw_cjd WHERE id = #{id};")

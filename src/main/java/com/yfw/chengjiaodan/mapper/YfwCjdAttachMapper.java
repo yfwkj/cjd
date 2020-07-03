@@ -12,7 +12,7 @@ import java.util.Map;
 
 public interface YfwCjdAttachMapper {
 
-    @Insert("INSERT INTO yfw_cjd_attach SET cjd_no=#{cjdNo},file_type=#{fileType},url=#{url},ico=#{ico},created_by=#{createdBy},created_time = NOW(),thumbnail=#{thumbnail};")
+    @Insert("INSERT INTO yfw_cjd_attach SET cjd_no=#{cjdNo},file_type=#{fileType},url=#{url},ico=#{ico},created_by=#{createdBy},created_time = NOW(),thumbnail=#{thumbnail},del = 0;")
     Integer insertYfwCjdAttach(YfwCjdAttachEntity yfwCjdAttachEntity);
 
     @Select("SELECT * FROM yfw_cjd_attach where 1 = 1 ${search} ORDER BY ${sort}")

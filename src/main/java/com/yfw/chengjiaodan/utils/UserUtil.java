@@ -35,7 +35,7 @@ public class UserUtil {
         }
         Claims claims = JwtHelper.parseJWT(jwt);
         //Integer userId = jsonObject.getInteger("userId");
-        int userId = (Integer.parseInt(AESSecretUtil.decryptToStr((String) claims.get("userId"), SecretConstant.DATAKEY)));
+        Integer userId = (Integer.parseInt(AESSecretUtil.decryptToStr((String) claims.get("userId"), SecretConstant.DATAKEY)));
         return yfwCjdAttachService.findStaff(userId + "");
 
 

@@ -29,7 +29,9 @@ public class YfwCjdAttachServiceImpl implements YfwCjdAttachService {
 
     @Override
     public Boolean addSubmit(YfwCjdAttachEntity yfwCjdAttachEntity) {
-
+        if(StringUtils.isEmpty(yfwCjdAttachEntity.getFileType())){
+            yfwCjdAttachEntity.setFileType("0");
+        }
         return yfwCjdAttachMapper.insertYfwCjdAttach(yfwCjdAttachEntity) > 0 ? true : false;
     }
 
