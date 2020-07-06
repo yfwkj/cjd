@@ -5,6 +5,7 @@ import com.yfw.chengjiaodan.mapper.entity.YfwCjdYjblEntity;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -33,5 +34,13 @@ public interface YfwCjdYjblMapper {
     @Select("SELECT * FROM yfw_cjd_yjbl where 1 = 1 ${search} ORDER BY ${sort}")
     List<YfwCjdYjblEntity> selectYfwCjdYjblPagehelper(@Param("sort") String sort, @Param("search") String search);
 
+    /**
+     * @Author Chenyz
+     * @Description 修改  yfw_cjd_yjbl del 字段 0 表示正常 1 表示删除
+     * @Date 15:36 2020/7/3
+     * @Param [id]
+     * @return java.lang.Integer
+     **/
+    @Update("UPDATE yfw_cjd_yjbl SET del = 1 WHERE id = #{id}")
     Integer updateCjdYjblById(@Param("id") String id);
 }

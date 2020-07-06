@@ -7,17 +7,16 @@ import com.yfw.chengjiaodan.base.BaseApiService;
 import com.yfw.chengjiaodan.base.BaseResponse;
 import com.yfw.chengjiaodan.constants.Constants;
 import com.yfw.chengjiaodan.mapper.entity.YfwCjdEntity;
+import com.yfw.chengjiaodan.mapper.entity.YfwCjdYjblEntity;
 import com.yfw.chengjiaodan.service.YfwCjdService;
 import lombok.extern.slf4j.Slf4j;
-import netscape.javascript.JSObject;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @ClassName: IndexController

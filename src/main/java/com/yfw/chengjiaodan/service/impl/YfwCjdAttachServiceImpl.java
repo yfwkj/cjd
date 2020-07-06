@@ -2,6 +2,9 @@ package com.yfw.chengjiaodan.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.yfw.chengjiaodan.base.BaseApiService;
+import com.yfw.chengjiaodan.base.BaseResponse;
 import com.yfw.chengjiaodan.mapper.YfwCjdAttachMapper;
 import com.yfw.chengjiaodan.mapper.entity.StaffVoEntity;
 import com.yfw.chengjiaodan.mapper.entity.YfwCjdAttachEntity;
@@ -22,7 +25,7 @@ import java.util.*;
  **/
 @Service
 @Slf4j
-public class YfwCjdAttachServiceImpl implements YfwCjdAttachService {
+public class YfwCjdAttachServiceImpl extends BaseApiService<JSONObject> implements YfwCjdAttachService {
 
     @Autowired
     private YfwCjdAttachMapper yfwCjdAttachMapper;
@@ -35,23 +38,6 @@ public class YfwCjdAttachServiceImpl implements YfwCjdAttachService {
         return yfwCjdAttachMapper.insertYfwCjdAttach(yfwCjdAttachEntity) > 0 ? true : false;
     }
 
-    @Override
-    public List<YfwCjdAttachEntity> findYfwCjdAttach(Integer page, Integer size, String sort, JSONObject search) {
-        PageHelper.startPage(page, size);
-        String temp = "";
-        Map<String, Object> searchMap = search.getInnerMap();
-        List<Object> searchValueList = new ArrayList<>();
-        for (String key : searchMap.keySet()) {
-            if (!StringUtils.isEmpty(searchMap.get(key) + "")) {
-                //拼接模糊查询
-                temp += " AND " + key + " LIKE " + "'%" + searchMap.get(key) + "%'";
-            }
-        }
-        if(StringUtils.isEmpty(sort)){
-            sort = "id";
-        }
-        return yfwCjdAttachMapper.selectYfwCjdAttachPagehelper(sort, temp);
-    }
 
     @Override
     public StaffVoEntity findStaff(String id) {
@@ -76,4 +62,14 @@ public class YfwCjdAttachServiceImpl implements YfwCjdAttachService {
         return yfwCjdAttachMapper.updateCjdAttachById(jsonId) > 0 ? true : false;
     }
 
+
+    public BaseResponse<JSONObject> findYfwCjdAttachList(JSONObject values) {
+        String sort = values.getString("sort");
+        String temp = values.getString("temp");
+        List<YfwCjdAttachEntity> yfwCjdAttachList = yfwCjdAttachMapper.selectYfwCjdAttachPagehelper(sort, temp);
+        PageInfo<YfwCjdAttachEntity> mapPageInfo = new PageInfo<>(yfwCjdAttachList);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("data",mapPageInfo);
+        return setResult(200,"成功",jsonObject);
+    }
 }

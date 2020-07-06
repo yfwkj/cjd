@@ -9,10 +9,16 @@ import com.yfw.chengjiaodan.service.YfwCjdYjblService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -31,49 +37,23 @@ public class YfwCjdYjblController extends BaseApiService<JSONObject> {
     @Autowired
     private YfwCjdYjblService yfwCjdYjblService;
 
+    @Autowired
+    RestTemplate restTemplate;
+
     @PostMapping("/addSubmit")
-    public BaseResponse<JSONObject> addSubmit(@RequestBody YfwCjdYjblEntity yfwCjdYjblEntity) {
+    public BaseResponse<JSONObject> addSubmit(@RequestBody YfwCjdYjblEntity yfwCjdYjblEntity, BindingResult bindingResult) {
         log.info("/cjd/cjdbili/addSubmit");
-        if (!yfwCjdYjblService.addSubmit(yfwCjdYjblEntity)) {
-            return setResultError("添加失败");
-        }
-        return setResultSuccess("添加成功");
+//        if (!yfwCjdYjblService.addSubmit(yfwCjdYjblEntity,bindingResult)) {
+//            return setResultError("添加失败");
+//        }
+//        return setResultSuccess("添加成功");
+        return yfwCjdYjblService.addSubmit(yfwCjdYjblEntity,bindingResult);
     }
 
     @PostMapping("/list")
     public BaseResponse<JSONObject> list(@RequestBody JSONObject values) {
-        log.info("/cjd/cjdbili/list");
-        String orders = "正序";
-        String page = values.getString("page");
-        Integer pageInt = 0;
-        if (!StringUtils.isEmpty(page)) {
-            pageInt = Integer.parseInt(page);
-        }
-        String size = values.getString("size");
-        Integer sizeInt = 5;
-        if (!StringUtils.isEmpty(size)) {
-            sizeInt = Integer.parseInt(size);
-        }
-        String sort = values.getString("sort");
-        String temp = sort;
-        if(temp.contains(" ")){
-            temp = sort.substring(sort.indexOf(" ")).replaceAll(" ","");
-        }
-        if("desc".equals(temp) || "DESC".equals(temp)){
-            orders = "倒序";
-        }
-        JSONObject search = values.getJSONObject("search");
-        List<YfwCjdYjblEntity> listYfwCjdYjblEntity =
-                yfwCjdYjblService.findYfwCjdYjbl(pageInt, sizeInt, sort, search);
-        PageInfo<YfwCjdYjblEntity> mapPageInfo = new PageInfo<>(listYfwCjdYjblEntity);
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("pages", page);
-        jsonObject.put("orders", orders);
-        jsonObject.put("size", mapPageInfo.getSize());
-        jsonObject.put("total", mapPageInfo.getTotal());
-        jsonObject.put("current", mapPageInfo.getPageNum() + 1);
-        jsonObject.put("records", mapPageInfo.getList());
-        return setResult(200, "", jsonObject);
+        BaseResponse<JSONObject> baseResponse = yfwCjdYjblService.findYfwCjdYjblList(values);
+        return baseResponse;
     }
 
     @PostMapping("/del")
@@ -84,4 +64,21 @@ public class YfwCjdYjblController extends BaseApiService<JSONObject> {
         return setResultError("删除失败");
     }
 
+
+//    @PostMapping("/test")
+//    public BaseResponse<JSONObject> test() {
+//        log.info("/cjd/cjdbili/list");
+//        JSONObject jsonObject = new JSONObject();
+//
+//        String url = "/cjd/cjdbili/list";
+//        jsonObject.put("page","0");
+//        jsonObject.put("size","5");
+//        jsonObject.put("sort","");
+//        jsonObject.put("search","{}");
+//        ResponseEntity<String> stringResponseEntity = restTemplate.postForEntity(url, jsonObject);
+//
+//
+//        jsonObject.put("/cjd/cjdbili/list", result1);
+//        return setResult(200, "", jsonObject);
+//    }
 }

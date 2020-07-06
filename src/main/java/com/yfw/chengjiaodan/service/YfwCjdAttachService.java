@@ -2,6 +2,8 @@ package com.yfw.chengjiaodan.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageInfo;
+import com.yfw.chengjiaodan.base.BaseResponse;
 import com.yfw.chengjiaodan.mapper.entity.StaffVoEntity;
 import com.yfw.chengjiaodan.mapper.entity.YfwCjdAttachEntity;
 import org.apache.ibatis.annotations.Param;
@@ -13,8 +15,6 @@ public interface YfwCjdAttachService {
 
     Boolean addSubmit(YfwCjdAttachEntity yfwCjdAttachEntity);
 
-    List<YfwCjdAttachEntity> findYfwCjdAttach(Integer page, Integer size, String sort, JSONObject search);
-
     StaffVoEntity findStaff(@Param("id") String id);
 
     /**
@@ -25,4 +25,6 @@ public interface YfwCjdAttachService {
      * @return java.lang.Boolean
      **/
     Boolean moveCjdAttachById(JSONObject id);
+
+    BaseResponse<JSONObject> findYfwCjdAttachList(JSONObject values);
 }

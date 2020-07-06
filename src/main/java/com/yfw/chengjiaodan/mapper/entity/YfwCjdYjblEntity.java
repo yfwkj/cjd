@@ -2,6 +2,8 @@ package com.yfw.chengjiaodan.mapper.entity;
 
 import lombok.Data;
 
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 /**
@@ -20,7 +22,9 @@ public class YfwCjdYjblEntity {
     private String cjdNo;
 
     //纳入业绩
-    private Integer isYeji;
+    @Pattern(regexp = "^[0-9]*$",message = "纳入业绩必须为整数")
+    @Size(min = 0, max = 11, message = "纳入业绩的值超过最大值范围")
+    private String isYeji;
 
     //分销分类
     private String mainType;
@@ -63,9 +67,7 @@ public class YfwCjdYjblEntity {
 
     private String createdBy;
 
-    private String createdTime;
 
-    private String del;
 
 
 }
