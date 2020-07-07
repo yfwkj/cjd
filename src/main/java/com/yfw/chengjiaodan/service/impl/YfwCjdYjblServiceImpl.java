@@ -8,14 +8,13 @@ import com.yfw.chengjiaodan.base.BaseApiService;
 import com.yfw.chengjiaodan.base.BaseResponse;
 import com.yfw.chengjiaodan.mapper.YfwCjdYjblMapper;
 
-import com.yfw.chengjiaodan.mapper.entity.YfwCjdYjblEntity;
 import com.yfw.chengjiaodan.service.YfwCjdYjblService;
+import com.yfwkj.jsb.mapper.entity.YfwCjdYjbl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-
 
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class YfwCjdYjblServiceImpl extends BaseApiService<JSONObject> implements
     private YfwCjdYjblMapper yfwCjdYjblMapper;
 
     @Override
-    public BaseResponse<JSONObject> addSubmit(@Validated YfwCjdYjblEntity yfwCjdYjblEntity, BindingResult bindingResult) {
+    public BaseResponse<JSONObject> addSubmit(@Validated YfwCjdYjbl yfwCjdYjbl, BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
             return setResultError(bindingResult.getFieldError().getDefaultMessage());
         }
@@ -61,7 +60,7 @@ public class YfwCjdYjblServiceImpl extends BaseApiService<JSONObject> implements
     }
 
     /**
-     * @return java.util.List<com.yfw.chengjiaodan.mapper.entity.YfwCjdYjblEntity>
+     * @return java.util.List<com.yfwkj.jsb.mapper.entity.YfwCjdYjblEntity>
      * @Author Chenyz
      * @Description 分页  模糊查询  排序
      * @Date 16:54 2020/7/2
@@ -70,8 +69,8 @@ public class YfwCjdYjblServiceImpl extends BaseApiService<JSONObject> implements
     public BaseResponse<JSONObject> findYfwCjdYjblList(JSONObject values){
         String sort = values.getString("sort");
         String temp = values.getString("temp");
-        List<YfwCjdYjblEntity> yfwCjdYjblList = yfwCjdYjblMapper.selectYfwCjdYjblPagehelper(sort,temp);
-        PageInfo<YfwCjdYjblEntity> mapPageInfo = new PageInfo<>(yfwCjdYjblList);
+        List<YfwCjdYjbl> yfwCjdYjblList = yfwCjdYjblMapper.selectYfwCjdYjblPagehelper(sort,temp);
+        PageInfo<YfwCjdYjbl> mapPageInfo = new PageInfo<>(yfwCjdYjblList);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("data",mapPageInfo);
         return setResult(200,"成功",jsonObject);

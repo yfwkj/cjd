@@ -1,6 +1,6 @@
 package com.yfw.chengjiaodan.base;
 
-import com.yfw.chengjiaodan.base.BaseResponse;
+
 import com.yfw.chengjiaodan.constants.Constants;
 import lombok.Data;
 import org.springframework.stereotype.Component;

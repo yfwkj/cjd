@@ -1,19 +1,15 @@
 package com.yfw.chengjiaodan.service;
 
-import com.alibaba.fastjson.JSON;
+
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageInfo;
 import com.yfw.chengjiaodan.base.BaseResponse;
 import com.yfw.chengjiaodan.mapper.entity.StaffVoEntity;
-import com.yfw.chengjiaodan.mapper.entity.YfwCjdAttachEntity;
+import com.yfwkj.jsb.mapper.entity.YfwCjdAttach;
 import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
-import java.util.Map;
 
 public interface YfwCjdAttachService {
 
-    Boolean addSubmit(YfwCjdAttachEntity yfwCjdAttachEntity);
+    Boolean addSubmit(YfwCjdAttach yfwCjdAttach);
 
     StaffVoEntity findStaff(@Param("id") String id);
 

@@ -29,6 +29,9 @@ spring:
       max-request-size: 100MB
       resolve-lazily: false
 
+  main:
+    #解决bean重复定义的。设置为true时，后定义的bean会覆盖之前定义的相同名称的bean
+    allow-bean-definition-overriding: true
 mybatis:
   configuration:
     #开启驼峰命名

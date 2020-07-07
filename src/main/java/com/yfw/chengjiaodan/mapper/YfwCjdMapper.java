@@ -1,7 +1,9 @@
 package com.yfw.chengjiaodan.mapper;
 
 
-import com.yfw.chengjiaodan.mapper.entity.YfwCjdEntity;
+
+
+import com.yfwkj.jsb.mapper.entity.YfwCjd;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
@@ -11,12 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface YfwCjdMapper {
-
-//    @Options(useGeneratedKeys = true, keyProperty = "id")
-//    @Insert("INSERT INTO yfw_cjd VALUES(NULL,#{cjNo},#{cjStatus},#{jsStatus},#{yjdzStatus},#{cjDate},#{cjDept},#{seller},#{sellerMobi},#{cuserName},#{cuserMobi},\n" +
-//            "#{cuserSourceDetail},#{cuserSource},#{fxName},#{fxMobi},#{qdName},#{qdMobi},#{jdName},#{jdMobi},#{cuserSzf},#{cuserSzfAddr},#{cuserCity},#{cjWays},#{fxCompany},#{lpCity},#{addDept},#{postAddr},#{qyDate},#{lpName},\n" +
-//            "#{lpJzmj},#{lpTnmj},#{contractNo},#{lpDong},#{lpDanyuan},#{lpFanghao},#{price},#{priceDiscount},#{amount},#{amountDiscount},#{payment},#{cjReward},#{lpHuxing},#{lpChaoxiang},#{bizhong},#{guadan},#{yongjingbl},#{beizhu},#{chengjiaogj},#{dianzijy},#{customId},#{cjdZt},#{createdBy},#{createdTime},#{updateBy},#{updateTime}, #{del})")
-//    Integer insertSubmit(YfwCjdEntity yfwCjdEntity);
 
     @Options(useGeneratedKeys = true, keyProperty = "id")
     @Insert("INSERT INTO yfw_cjd SET cj_no = #{cjNo},cj_status=#{cjStatus},js_status=#{jsStatus},\n" +
@@ -34,7 +30,7 @@ public interface YfwCjdMapper {
             "\t\t\tlp_chaoxiang=#{lpChaoxiang},bizhong=#{bizhong},guadan=#{guadan},yongjingbl=#{yongjingbl},beizhu=#{beizhu},\n" +
             "\t\t\tchengjiaogj=#{chengjiaogj},dianzijy=#{dianzijy},custom_id=#{customId},cjd_zt=#{cjdZt},created_by=#{createdBy},\n" +
             "\t\t\tcreated_time=NOW(),update_by=#{updateBy},update_time=NOW(),del=0;")
-    Integer insertSubmit(YfwCjdEntity yfwCjdEntity);
+    Integer insertSubmit(YfwCjd yfwCjd);
 
 //    @Select("SELECT * FROM yfw_cjd WHERE id = #{id};")
 //    Map<String,Object> selectYfwCjdEntity(@Param("id") Integer id);
@@ -54,7 +50,7 @@ public interface YfwCjdMapper {
             "\t\t\tlp_chaoxiang AS lpChaoxiang ,bizhong AS bizhong ,guadan AS guadan ,yongjingbl AS yongjingbl ,beizhu AS beizhu,\n" +
             "\t\t\tchengjiaogj AS chengjiaogj ,dianzijy AS dianzijy ,custom_id AS customId ,cjd_zt AS cjdZt ,created_by AS createdBy,\n" +
             "\t\t\tDATE_FORMAT(created_time,'%Y-%m-%d') AS createdTime ,update_by AS updateBy ,DATE_FORMAT(update_time,'%Y-%m-%d') AS updateTime ,del AS del FROM yfw_cjd WHERE id = #{id}")
-    YfwCjdEntity selectYfwCjdEntity(@Param("id") Integer id);
+    YfwCjd selectYfwCjdEntity(@Param("id") Integer id);
 
     /**
      * @Author Chenyz

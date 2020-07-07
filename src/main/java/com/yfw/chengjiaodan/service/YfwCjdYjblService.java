@@ -2,14 +2,9 @@ package com.yfw.chengjiaodan.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.yfw.chengjiaodan.base.BaseResponse;
-import com.yfw.chengjiaodan.mapper.entity.YfwCjdAttachEntity;
-import com.yfw.chengjiaodan.mapper.entity.YfwCjdYjblEntity;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Update;
+import com.yfwkj.jsb.mapper.entity.YfwCjdYjbl;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-
-import java.util.List;
 
 public interface YfwCjdYjblService {
 
@@ -20,7 +15,7 @@ public interface YfwCjdYjblService {
      * @Date 16:54 2020/7/2
      * @Param [yfwCjdYjblEntity]
      **/
-    BaseResponse<JSONObject> addSubmit(@Validated YfwCjdYjblEntity yfwCjdYjblEntity, BindingResult bindingResult);
+    BaseResponse<JSONObject> addSubmit(@Validated YfwCjdYjbl yfwCjdYjbl, BindingResult bindingResult);
 
     BaseResponse<JSONObject> findYfwCjdYjblList(JSONObject values);
 

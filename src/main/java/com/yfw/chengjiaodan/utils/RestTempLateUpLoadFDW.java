@@ -1,5 +1,6 @@
 package com.yfw.chengjiaodan.utils;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -31,5 +32,17 @@ public class RestTempLateUpLoadFDW {
         ResponseEntity<String> stringResponseEntity = restTemplate.postForEntity("http://www.fangdianwang.com:8082/uploadfile/upload", httpEntity, String.class);
         return stringResponseEntity.getBody();
     }
+
+//    public static String testApi(JSONObject jsonObject, RestTemplate restTemplate,String url) {
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+//        MultiValueMap<String, Object> parts = new LinkedMultiValueMap<>();
+//        //log.info(multipartFile.getOriginalFilename());
+//        parts.add("jsonObject", jsonObject);
+//        //        parts.add("file", thumbnailsFile.getResource());
+//        HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(parts, headers);
+//        ResponseEntity<String> stringResponseEntity = restTemplate.postForEntity(url, httpEntity, String.class);
+//        return stringResponseEntity.getBody();
+//    }
 
 }

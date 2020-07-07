@@ -6,7 +6,6 @@ import com.yfw.chengjiaodan.base.BaseResponse;
 import com.yfw.chengjiaodan.service.UpLoadService;
 import com.yfw.chengjiaodan.utils.RestTempLateUpLoadFDW;
 import com.yfw.chengjiaodan.utils.ThumbnailsUtil;
-import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Service;

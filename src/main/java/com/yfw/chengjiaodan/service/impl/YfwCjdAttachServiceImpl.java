@@ -1,14 +1,15 @@
 package com.yfw.chengjiaodan.service.impl;
 
+
+
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yfw.chengjiaodan.base.BaseApiService;
 import com.yfw.chengjiaodan.base.BaseResponse;
 import com.yfw.chengjiaodan.mapper.YfwCjdAttachMapper;
 import com.yfw.chengjiaodan.mapper.entity.StaffVoEntity;
-import com.yfw.chengjiaodan.mapper.entity.YfwCjdAttachEntity;
 import com.yfw.chengjiaodan.service.YfwCjdAttachService;
+import com.yfwkj.jsb.mapper.entity.YfwCjdAttach;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +32,11 @@ public class YfwCjdAttachServiceImpl extends BaseApiService<JSONObject> implemen
     private YfwCjdAttachMapper yfwCjdAttachMapper;
 
     @Override
-    public Boolean addSubmit(YfwCjdAttachEntity yfwCjdAttachEntity) {
-        if(StringUtils.isEmpty(yfwCjdAttachEntity.getFileType())){
-            yfwCjdAttachEntity.setFileType("0");
+    public Boolean addSubmit(YfwCjdAttach yfwCjdAttach) {
+        if(yfwCjdAttach.getFileType() == null){
+            yfwCjdAttach.setFileType(0);
         }
-        return yfwCjdAttachMapper.insertYfwCjdAttach(yfwCjdAttachEntity) > 0 ? true : false;
+        return yfwCjdAttachMapper.insertYfwCjdAttach(yfwCjdAttach) > 0 ? true : false;
     }
 
 
@@ -66,8 +67,8 @@ public class YfwCjdAttachServiceImpl extends BaseApiService<JSONObject> implemen
     public BaseResponse<JSONObject> findYfwCjdAttachList(JSONObject values) {
         String sort = values.getString("sort");
         String temp = values.getString("temp");
-        List<YfwCjdAttachEntity> yfwCjdAttachList = yfwCjdAttachMapper.selectYfwCjdAttachPagehelper(sort, temp);
-        PageInfo<YfwCjdAttachEntity> mapPageInfo = new PageInfo<>(yfwCjdAttachList);
+        List<YfwCjdAttach> yfwCjdAttachList = yfwCjdAttachMapper.selectYfwCjdAttachPagehelper(sort, temp);
+        PageInfo<YfwCjdAttach> mapPageInfo = new PageInfo<>(yfwCjdAttachList);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("data",mapPageInfo);
         return setResult(200,"成功",jsonObject);

@@ -1,26 +1,18 @@
 package com.yfw.chengjiaodan.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageInfo;
 import com.yfw.chengjiaodan.base.BaseApiService;
 import com.yfw.chengjiaodan.base.BaseResponse;
-import com.yfw.chengjiaodan.mapper.entity.YfwCjdYjblEntity;
 import com.yfw.chengjiaodan.service.YfwCjdYjblService;
+import com.yfwkj.jsb.mapper.entity.YfwCjdYjbl;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
 
 /**
  * @ClassName: YfwCjdYjblController
@@ -41,13 +33,13 @@ public class YfwCjdYjblController extends BaseApiService<JSONObject> {
     RestTemplate restTemplate;
 
     @PostMapping("/addSubmit")
-    public BaseResponse<JSONObject> addSubmit(@RequestBody YfwCjdYjblEntity yfwCjdYjblEntity, BindingResult bindingResult) {
+    public BaseResponse<JSONObject> addSubmit(@RequestBody YfwCjdYjbl yfwCjdYjbl, BindingResult bindingResult) {
         log.info("/cjd/cjdbili/addSubmit");
 //        if (!yfwCjdYjblService.addSubmit(yfwCjdYjblEntity,bindingResult)) {
 //            return setResultError("添加失败");
 //        }
 //        return setResultSuccess("添加成功");
-        return yfwCjdYjblService.addSubmit(yfwCjdYjblEntity,bindingResult);
+        return yfwCjdYjblService.addSubmit(yfwCjdYjbl,bindingResult);
     }
 
     @PostMapping("/list")

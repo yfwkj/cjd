@@ -2,22 +2,20 @@ package com.yfw.chengjiaodan.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageInfo;
 import com.yfw.chengjiaodan.base.BaseApiService;
 import com.yfw.chengjiaodan.base.BaseResponse;
 import com.yfw.chengjiaodan.mapper.entity.StaffVoEntity;
-import com.yfw.chengjiaodan.mapper.entity.YfwCjdAttachEntity;
 import com.yfw.chengjiaodan.service.YfwCjdAttachService;
 import com.yfw.chengjiaodan.utils.UserUtil;
+import com.yfwkj.jsb.mapper.entity.YfwCjdAttach;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
-
-import java.util.List;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @ClassName: CjdAttachController
@@ -35,50 +33,21 @@ public class CjdAttachController extends BaseApiService<JSONObject> {
     private YfwCjdAttachService yfwCjdAttachService;
 
     @RequestMapping("/addSubmit")
-    public BaseResponse<JSONObject> addSubmit(@RequestBody @Validated YfwCjdAttachEntity yfwCjdAttachEntity, BindingResult bindingResult) {
+    public BaseResponse<JSONObject> addSubmit(@RequestBody @Validated YfwCjdAttach yfwCjdAttach, BindingResult bindingResult) {
         log.info("/cjd/cjdAttach/addSubmit");
         StaffVoEntity staff = UserUtil.getTokenStaff(yfwCjdAttachService);
         if (staff == null) {
             return setResultError("可能因为token已经超时或非法token");
         }
-        yfwCjdAttachEntity.setCreatedBy(staff.getName());
+        yfwCjdAttach.setCreatedBy(staff.getName());
         if (bindingResult.hasErrors()) {
             return setResultError(400, bindingResult.getFieldError().getDefaultMessage());
         }
-        if (yfwCjdAttachService.addSubmit(yfwCjdAttachEntity)) {
+        if (yfwCjdAttachService.addSubmit(yfwCjdAttach)) {
             return setResult(200, "添加成功", null);
         }
         return setResultError(400, "添加失败");
     }
-
-
-//    @RequestMapping("/list")
-//    public BaseResponse<JSONObject> list(@RequestBody JSONObject values) {
-//        log.info("/cjd/cjdAttach/list");
-//        String page = values.getString("page");
-//        Integer pageInt = 0;
-//        if (!StringUtils.isEmpty(page)) {
-//            pageInt = Integer.parseInt(page);
-//        }
-//        String size = values.getString("size");
-//        Integer sizeInt = 5;
-//        if (!StringUtils.isEmpty(size)) {
-//            sizeInt = Integer.parseInt(size);
-//        }
-//        String sort = values.getString("sort");
-//        JSONObject search = values.getJSONObject("search");
-//        List<YfwCjdAttachEntity> listYfwCjdAttach =
-//                yfwCjdAttachService.findYfwCjdAttach(pageInt, sizeInt, sort, search);
-//        PageInfo<YfwCjdAttachEntity> mapPageInfo = new PageInfo<>(listYfwCjdAttach);
-//        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("pages", mapPageInfo.getPageSize());
-//        jsonObject.put("orders", sort);
-//        jsonObject.put("size", mapPageInfo.getPageSize());
-//        jsonObject.put("total", mapPageInfo.getTotal());
-//        jsonObject.put("current", mapPageInfo.getPageNum());
-//        jsonObject.put("records", mapPageInfo.getList());
-//        return setResult(200, "", jsonObject);
-//    }
 
     /**
      * @return com.yfw.chengjiaodan.base.BaseResponse<com.alibaba.fastjson.JSONObject>

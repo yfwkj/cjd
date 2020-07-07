@@ -1,14 +1,15 @@
 package com.yfw.chengjiaodan.mapper;
 
+
+
 import com.yfw.chengjiaodan.mapper.entity.StaffVoEntity;
-import com.yfw.chengjiaodan.mapper.entity.YfwCjdAttachEntity;
+import com.yfwkj.jsb.mapper.entity.YfwCjdAttach;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
-import java.util.Map;
 
 
 public interface YfwCjdAttachMapper {
@@ -21,24 +22,24 @@ public interface YfwCjdAttachMapper {
      * @return java.lang.Integer
      **/
     @Insert("INSERT INTO yfw_cjd_attach SET cjd_no=#{cjdNo},file_type=#{fileType},url=#{url},ico=#{ico},created_by=#{createdBy},created_time = NOW(),thumbnail=#{thumbnail},del = 0;")
-    Integer insertYfwCjdAttach(YfwCjdAttachEntity yfwCjdAttachEntity);
+    Integer insertYfwCjdAttach(YfwCjdAttach yfwCjdAttach);
 
     /**
      * @Author Chenyz
      * @Description 分页 模糊查询 排序
      * @Date 14:41 2020/7/3
      * @Param [sort, search]
-     * @return java.util.List<com.yfw.chengjiaodan.mapper.entity.YfwCjdAttachEntity>
+     * @return java.util.List<com.yfwkj.jsb.mapper.entity.YfwCjdAttachEntity>
      **/
     @Select("SELECT * FROM yfw_cjd_attach where 1 = 1 ${search} ORDER BY ${sort}")
-    List<YfwCjdAttachEntity> selectYfwCjdAttachPagehelper(@Param("sort") String sort, @Param("search") String search);
+    List<YfwCjdAttach> selectYfwCjdAttachPagehelper(@Param("sort") String sort, @Param("search") String search);
 
     /**
      * @Author Chenyz
      * @Description 获取 id 联合查询 返回 created_by
      * @Date 14:40 2020/7/3
      * @Param [id]
-     * @return com.yfw.chengjiaodan.mapper.entity.StaffVoEntity
+     * @return com.yfwkj.jsb.mapper.entity.StaffVoEntity
      **/
     @Select("select   p.position_name,d.dept_name, s.* from yfw_userstaff u ,yfw_staff s ,yfw_position p ,yfw_dept d\n" +
             "where    s.id=u.staff_id and p.id=s.position_id and d.id=s.deptid and u.user_id = #{id}")
